@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>LUXE</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:sans-serif;
+}
+
+body{
+background:#f4f4f4;
+}
+
+nav{
+background:black;
+color:white;
+padding:15px 20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.logo{
+font-size:28px;
+font-weight:bold;
+color:gold;
+}
+
+.cart{
+background:gold;
+color:black;
+padding:8px 15px;
+border-radius:20px;
+font-weight:bold;
+}
+
+.hero{
+height:45vh;
+background:black;
+color:white;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+}
+
+.hero h1{
+font-size:45px;
+margin-bottom:10px;
+}
+
+.hero button{
+padding:10px 20px;
+border:none;
+background:gold;
+border-radius:20px;
+cursor:pointer;
+}
+
+.buttons{
+text-align:center;
+padding:20px;
+}
+
+.buttons button{
+padding:10px 15px;
+margin:5px;
+border:none;
+border-radius:20px;
+cursor:pointer;
+background:white;
+}
+
+.products{
+padding:20px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+}
+
+.card{
+background:white;
+border-radius:10px;
+overflow:hidden;
+box-shadow:0 4px 10px rgba(0,0,0,.1);
+}
+
+.card img{
+width:100%;
+height:220px;
+object-fit:cover;
+}
+
+.info{
+padding:15px;
+}
+
+.price{
+color:green;
+font-weight:bold;
+margin:10px 0;
+}
+
+.card button{
+width:100%;
+padding:10px;
+border:none;
+background:black;
+color:white;
+cursor:pointer;
+border-radius:5px;
+}
+
+footer{
+background:black;
+color:white;
+text-align:center;
+padding:15px;
+margin-top:20px;
+}
+
+</style>
+</head>
+
+<body>
+
+<nav>
+
+<div class="logo">LUXE</div>
+
+<div class="cart">
+Cart ₹<span id="total">0</span>
+</div>
+
+</nav>
+
+<div class="hero">
+
+<h1>LUXE STORE</h1>
+
+<p>Fashion • Beauty • Electronics</p>
+
+<br>
+
+<button>Shop Now</button>
+
+</div>
+
+<div class="buttons">
+
+<button onclick="filterData('All')">All</button>
+
+<button onclick="filterData('Fashion')">Fashion</button>
+
+<button onclick="filterData('Electronics')">Electronics</button>
+
+<button onclick="filterData('Beauty')">Beauty</button>
+
+</div>
+
+<div class="products" id="products"></div>
+
+<footer>
+
+<p>© 2026 LUXE STORE</p>
+
+</footer>
+
+<script>
+
+let total = 0;
+
+const products = [
+
+{
+name:"AirPods",
+category:"Electronics",
+price:24999,
+image:"https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?q=80&w=800"
+},
+
+{
+name:"Watch",
+category:"Electronics",
+price:18999,
+image:"https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=800"
+},
+
+{
+name:"Shoes",
+category:"Fashion",
+price:7999,
+image:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=800"
+},
+
+{
+name:"Bag",
+category:"Fashion",
+price:6999,
+image:"https://images.unsplash.com/photo-1548036328-c9fa89d128fa?q=80&w=800"
+},
+
+{
+name:"Serum",
+category:"Beauty",
+price:5499,
+image:"https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=800"
+}
+
+];
+
+function showProducts(data){
+
+let cards = "";
+
+for(let i=0;i<data.length;i++){
+
+cards += `
+
+<div class="card">
+
+<img src="${data[i].image}">
+
+<div class="info">
+
+<h3>${data[i].name}</h3>
+
+<p>${data[i].category}</p>
+
+<p class="price">₹${data[i].price}</p>
+
+<button onclick="addCart(${data[i].price})">
+Add To Cart
+</button>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+document.getElementById("products").innerHTML = cards;
+
+}
+
+function filterData(category){
+
+if(category=="All"){
+
+showProducts(products);
+
+}
+
+else{
+
+let newData = [];
+
+for(let i=0;i<products.length;i++){
+
+if(products[i].category==category){
+
+newData.push(products[i]);
+
+}
+
+}
+
+showProducts(newData);
+
+}
+
+}
+
+function addCart(price){
+
+total = total + price;
+
+document.getElementById("total").innerText = total;
+
+}
+
+showProducts(products);
+
+</script>
+
+</body>
+</html>
